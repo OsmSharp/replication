@@ -15,7 +15,7 @@ OsmSharp can then be used to apply the diffs.
 
 ### Install
 
-    PM> Install-Package OsmSharp
+    PM> Install-Package OsmSharp.Replication
 
 
 ### Usage

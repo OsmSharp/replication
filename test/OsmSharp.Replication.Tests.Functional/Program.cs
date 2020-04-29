@@ -48,9 +48,6 @@ namespace OsmSharp.Replication.Test.Functional
             {
                 var current = catchupEnumerator.State;
 
-                var diff = await catchupEnumerator.Diff();
-                
-                //
                 Log.Information($"State: {current}");
             }
         }
