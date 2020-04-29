@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 namespace OsmSharp.Replication
 {
     /// <summary>
-    /// A replication enumerator to enumerate the minimum number of changeset to get updates since the given date time.
+    /// A replication enumerator to enumerate the minimum number of change set to get updates since the given date time.
     /// </summary>
     public class CatchupReplicationDiffEnumerator : IReplicationDiffEnumerator
     {
         private readonly bool _moveDown;
         
         /// <summary>
-        /// Creates a new catch up replication changeset enumerator.
+        /// Creates a new catch up replication change set enumerator.
         /// </summary>
         /// <param name="dateTime">The timestamp to start at.</param>
         /// <param name="moveDown">Move down from daily to hourly to minutely if latest is reached.</param>
@@ -25,9 +25,9 @@ namespace OsmSharp.Replication
         private ReplicationDiffEnumerator? _enumerator = null;
 
         /// <summary>
-        /// Move to the next changeset.
+        /// Move to the next change set.
         /// </summary>
-        /// <returns>Returns true if a next changeset is available.</returns>
+        /// <returns>Returns true if a next change set is available.</returns>
         public async Task<bool> MoveNext()
         {
             if (_startDateTime.Minute != 0)
@@ -59,7 +59,7 @@ namespace OsmSharp.Replication
                 }
 
                 // the new start date time is the end of the current diff.
-                _startDateTime = _enumerator.State.Timestamp;
+                _startDateTime = _enumerator.State.EndTimestamp;
 
                 return true;
             }
@@ -110,7 +110,7 @@ namespace OsmSharp.Replication
                 }
 
                 // the new start date time is the end of the current diff.
-                _startDateTime = _enumerator.State.Timestamp;
+                _startDateTime = _enumerator.State.EndTimestamp;
 
                 return true;
             }
@@ -173,7 +173,7 @@ namespace OsmSharp.Replication
             }
 
             // the new start date time is the end of the current diff.
-            _startDateTime = _enumerator.State.Timestamp;
+            _startDateTime = _enumerator.State.EndTimestamp;
 
             return true;
         }

@@ -1,8 +1,10 @@
 using System;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using OsmSharp.Logging;
 
 namespace OsmSharp.Replication.Http
 {
@@ -13,9 +15,27 @@ namespace OsmSharp.Replication.Http
         internal static readonly Lazy<IHttpHandler> LazyHttpHandler = 
             new Lazy<IHttpHandler>(() => new HttpHandler());
         
-        public async Task<Stream> TryGetStreamAsync(string requestUri)
+        public async Task<Stream?> TryGetStreamAsync(string requestUri)
         {
-            return await ThreadLocalClient.Value.GetStreamAsync(requestUri);
+            var client = ThreadLocalClient.Value;
+            try
+            {
+                var response = await client.GetAsync(requestUri);
+                if (response.IsSuccessStatusCode) return await response.Content.ReadAsStreamAsync();
+
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+                
+                throw new HttpRequestException("Unexpected response.");
+            }
+            catch (Exception e)
+            {
+                Logger.Log($"{nameof(HttpHandler)}.{nameof(TryGetStreamAsync)}", TraceEventType.Error,
+                    $"Unhandled exception when getting {requestUri}: {e}");
+                throw;
+            }
         }
 
         private static IHttpHandler? _defaultHandler;

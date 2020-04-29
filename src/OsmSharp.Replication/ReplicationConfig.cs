@@ -13,8 +13,8 @@ namespace OsmSharp.Replication
         /// <summary>
         /// The maximum possible sequence number.
         /// </summary>
-        public static readonly long MaxSequenceNumber = 999999999;
-        
+        public const long MaxSequenceNumber = 999999999;
+
         /// <summary>
         /// Gets the default configuration for minutely updates.
         /// </summary>
@@ -54,7 +54,7 @@ namespace OsmSharp.Replication
         /// </summary>
         public int Period { get; }
 
-        private ReplicationState _state = null;
+        private ReplicationState? _state = null;
 
         /// <summary>
         /// Gets the latest replication state.
@@ -63,7 +63,7 @@ namespace OsmSharp.Replication
         public async Task<ReplicationState> LatestReplicationState()
         {
             if (_state != null &&
-                _state.Timestamp > DateTime.Now.AddSeconds(this.Period))
+                _state.EndTimestamp > DateTime.Now.AddSeconds(this.Period))
             { // there cannot be a new latest.
                 return _state;
             }

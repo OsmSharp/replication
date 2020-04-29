@@ -164,7 +164,7 @@ namespace OsmSharp.Replication.Test
 
             Assert.NotNull(result);
             Assert.Equal(2517, result.SequenceNumber);
-            Assert.Equal(new DateTime(2019, 08, 04, 0, 0, 0, DateTimeKind.Utc), result.Timestamp);
+            Assert.Equal(new DateTime(2019, 08, 04, 0, 0, 0, DateTimeKind.Utc), result.EndTimestamp);
             Assert.Equal(replicationConfig, result.Config);
         }
 

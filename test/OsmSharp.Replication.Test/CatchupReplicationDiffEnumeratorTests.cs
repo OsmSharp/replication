@@ -47,8 +47,6 @@ namespace OsmSharp.Replication.Test
 
             // then days will happen.
             Assert.True(await enumerator.MoveNext());
-            Assert.Equal(2567, enumerator.State.SequenceNumber);
-            Assert.True(await enumerator.MoveNext());
             Assert.Equal(2568, enumerator.State.SequenceNumber);
             Assert.True(await enumerator.MoveNext());
             Assert.Equal(2569, enumerator.State.SequenceNumber);

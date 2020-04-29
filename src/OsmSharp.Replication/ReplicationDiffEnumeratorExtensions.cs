@@ -42,7 +42,7 @@ namespace OsmSharp.Replication
             // this is the weird case where the timestamps don't match the sequence numbers
             
             // first assume they match locally and offset them.
-            var diff = (int)System.Math.Floor((timestamp - enumerator.State.Timestamp).TotalSeconds / enumerator.Config.Period);
+            var diff = (int)System.Math.Floor((timestamp - enumerator.State.EndTimestamp).TotalSeconds / enumerator.Config.Period);
             sequenceNumber += diff;
             if (!await enumerator.MoveTo(sequenceNumber))
             {
@@ -53,7 +53,7 @@ namespace OsmSharp.Replication
             while (!enumerator.State.Overlaps(timestamp))
             {
                 // they don't overlap start moving up or down, we assume our heuristic is close enough already.
-                if (enumerator.State.Timestamp > timestamp)
+                if (enumerator.State.EndTimestamp > timestamp)
                 {
                     if (!await enumerator.MovePrevious())
                     {

@@ -100,7 +100,7 @@ namespace OsmSharp.Replication
         public static async Task<long> GuessSequenceNumberAt(this ReplicationConfig config, DateTime dateTime)
         {
             var latest = await config.LatestReplicationState();
-            var start = latest.Timestamp.AddSeconds(-config.Period);
+            var start = latest.EndTimestamp.AddSeconds(-config.Period);
             var diff = (int)(start - dateTime).TotalSeconds;
             var leftOver = (diff % config.Period);
             var sequenceOffset = (diff - leftOver) / config.Period;

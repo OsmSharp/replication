@@ -15,6 +15,6 @@ namespace OsmSharp.Replication.Http
         /// </summary>
         /// <param name="requestUri">The uri.</param>
         /// <returns>The stream.</returns>
-        Task<Stream> TryGetStreamAsync(string requestUri);
+        Task<Stream?> TryGetStreamAsync(string requestUri);
     }
 }

@@ -12,16 +12,21 @@ namespace OsmSharp.Replication
         /// <returns>True if the given date/time is in the range ]state.timestamp - period, state.timestamp].</returns>
         public static bool Overlaps(this ReplicationState state, DateTime dateTime)
         {
-            var start = state.Timestamp.AddSeconds(-state.Config.Period);
-            var end = state.Timestamp;
-
-            if (start < dateTime &&
-                end >= dateTime)
+            var end = state.EndTimestamp;
+            if (end <= dateTime)
             {
-                return true;
+                // after, doesn't overlap.
+                return false;
             }
-
-            return false;
+            
+            var start = state.StartTimestamp;
+            if (start > dateTime)
+            {
+                // before, doesn't overlap.
+                return false;
+            }
+            
+            return true;
         }
     }
 }

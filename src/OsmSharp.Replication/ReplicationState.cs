@@ -15,12 +15,12 @@ namespace OsmSharp.Replication
         /// </summary>
         /// <param name="config">The replication config.</param>
         /// <param name="sequenceNumber">The sequence number.</param>
-        /// <param name="timestamp">The timestamp.</param>
-        internal ReplicationState(ReplicationConfig config, long sequenceNumber, DateTime timestamp)
+        /// <param name="endTimestamp">The timestamp.</param>
+        internal ReplicationState(ReplicationConfig config, long sequenceNumber, DateTime endTimestamp)
         {
             this.Config = config;
             this.SequenceNumber = sequenceNumber;
-            this.Timestamp = timestamp;
+            this.EndTimestamp = endTimestamp;
         }
         
         /// <summary>
@@ -32,16 +32,21 @@ namespace OsmSharp.Replication
         /// Gets the sequence number.
         /// </summary>
         public long SequenceNumber { get; }
+
+        /// <summary>
+        /// Gets the start timestamp (included).
+        /// </summary>
+        public DateTime StartTimestamp => this.EndTimestamp.AddSeconds(-this.Config.Period);
         
         /// <summary>
-        /// Gets the timestamp.
+        /// Gets the end timestamp (excluded).
         /// </summary>
-        public DateTime Timestamp { get; }
+        public DateTime EndTimestamp { get; }
 
         /// <inheritdoc/>
         public override string ToString()
         {
-            return $"{this.SequenceNumber} @ {this.Timestamp} for {this.Config}";
+            return $"{this.SequenceNumber} @ [{this.StartTimestamp}->{this.EndTimestamp}[ UTC for {this.Config}";
         }
     }
 }
