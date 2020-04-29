@@ -4,7 +4,7 @@
 
 A package to use the OSM replication infrastructure.
 
-- OsmSharp.Replication: [![NuGet Badge](https://buildstats.info/nuget/OsmSharp.Replication)](https://www.nuget.org/packages/OsmSharp.Replication/) [![NuGet Badge](https://buildstats.info/nuget/OsmSharp.Replication?includePreReleases=true)](https://www.nuget.org/packages/OsmSharp.Replication)  
+- OsmSharp.Replication:  [![NuGet Badge](https://buildstats.info/nuget/OsmSharp.Replication?includePreReleases=true)](https://www.nuget.org/packages/OsmSharp.Replication)  
 
 OsmSharp enables you to use the OSM replication system from the OSM [planet server](https://planet.openstreetmap.org/) (and similar services) to keep local OSM data up to date. This package allows to:
 
