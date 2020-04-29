@@ -125,18 +125,16 @@ namespace OsmSharp.Replication
                     
                     // if latest, try hours.
                     _enumerator = await ReplicationConfig.Hourly.GetDiffEnumerator(_startDateTime);
-                    if (_enumerator != null && !_enumerator.CurrentIsLatest)
-                    { // there is an hour, maybe the next hour is there.
-                        if (!await _enumerator.MoveNext())
+                    if (_enumerator == null)
+                    {
+                        // there is no hour, try minutes.
+                        _enumerator = await ReplicationConfig.Minutely.GetDiffEnumerator(_startDateTime);
+                        if (_enumerator != null && !_enumerator.CurrentIsLatest)
                         {
-                            // if latest, try minutes.
-                            _enumerator = await ReplicationConfig.Minutely.GetDiffEnumerator(_startDateTime);
-                            if (_enumerator != null && !_enumerator.CurrentIsLatest)
-                            { // there is an minute, maybe the next minute is there.
-                                if (!await _enumerator.MoveNext())
-                                {
-                                    return false;
-                                }
+                            // there is an minute, maybe the next minute is there.
+                            if (!await _enumerator.MoveNext())
+                            {
+                                return false;
                             }
                         }
                     }

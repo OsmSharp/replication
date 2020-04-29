@@ -1,5 +1,7 @@
 # replication
 
+[![Build status](https://build.anyways.eu/app/rest/builds/buildType:(id:Osmsharp_Replication)/statusIcon)](https://build.anyways.eu/viewType.html?buildTypeId=Osmsharp_Replication2)  
+
 A package to use the OSM replication infrastructure.
 
 - OsmSharp.Replication: [![NuGet Badge](https://buildstats.info/nuget/OsmSharp.Replication)](https://www.nuget.org/packages/OsmSharp.Replication/) [![NuGet Badge](https://buildstats.info/nuget/OsmSharp.Replication?includePreReleases=true)](https://www.nuget.org/packages/OsmSharp.Replication)  
