@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>default</LangVersion>
     <Nullable>enable</Nullable>
-    <PackageVersion>0.0.1-alpha</PackageVersion>
+    <PackageVersion>0.0.2-alpha</PackageVersion>
     <Title>OsmSharp.Replication</Title>
     <Authors>Ben Abelshausen</Authors>
     <Description>An OSM replication package for OsmSharp.</Description>

@@ -50,8 +50,28 @@ namespace OsmSharp.Replication
             }
             
             // if overlap, things are fine, if not keep moving.
-            while (!enumerator.State.Overlaps(timestamp))
+            var sequenceAfter = long.MaxValue;
+            var sequenceBefore = long.MinValue;
+            while (!enumerator.State.Overlaps(timestamp, out var before))
             {
+                if (before) 
+                {
+                    if (sequenceAfter > enumerator.State.SequenceNumber) sequenceAfter = enumerator.State.SequenceNumber;
+                }
+                else
+                {
+                    if (sequenceBefore < enumerator.State.SequenceNumber) sequenceBefore = enumerator.State.SequenceNumber;
+                }
+
+                var window = sequenceAfter - sequenceBefore;
+                if (window == 0 || window == 1)
+                {
+                    // both don't overlap but there is nothing in between.
+                    // return the first thing after.
+                    await enumerator.MoveTo(sequenceAfter);
+                    return true;
+                }
+                
                 // they don't overlap start moving up or down, we assume our heuristic is close enough already.
                 if (enumerator.State.EndTimestamp > timestamp)
                 {
