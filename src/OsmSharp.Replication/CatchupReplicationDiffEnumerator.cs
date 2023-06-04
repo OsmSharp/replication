@@ -73,12 +73,9 @@ namespace OsmSharp.Replication
                     {
                         // if latest, try minutes.
                         _enumerator = await ReplicationConfig.Minutely.GetDiffEnumerator(_startDateTime);
-                        if (_enumerator != null && !_enumerator.CurrentIsLatest)
-                        { // there is an minute, maybe the next minute is there.
-                            if (!await _enumerator.MoveNext())
-                            {
-                                return false;
-                            }
+                        if (_enumerator == null)
+                        {
+                            return false;
                         }
                     }
                     else
@@ -129,13 +126,9 @@ namespace OsmSharp.Replication
                     {
                         // there is no hour, try minutes.
                         _enumerator = await ReplicationConfig.Minutely.GetDiffEnumerator(_startDateTime);
-                        if (_enumerator != null && !_enumerator.CurrentIsLatest)
+                        if (_enumerator == null)
                         {
-                            // there is an minute, maybe the next minute is there.
-                            if (!await _enumerator.MoveNext())
-                            {
-                                return false;
-                            }
+                            return false;
                         }
                     }
                 }

@@ -83,6 +83,8 @@ namespace OsmSharp.Replication.Test
 
             // then minutes again.
             Assert.True(await enumerator.MoveNext());
+            Assert.Equal(3687189, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
             Assert.Equal(3687190, enumerator.State.SequenceNumber);
             Assert.True(await enumerator.MoveNext());
             Assert.Equal(3687191, enumerator.State.SequenceNumber);
