@@ -83,6 +83,8 @@ namespace OsmSharp.Replication.Test
 
             // then minutes again.
             Assert.True(await enumerator.MoveNext());
+            Assert.Equal(3687189, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
             Assert.Equal(3687190, enumerator.State.SequenceNumber);
             Assert.True(await enumerator.MoveNext());
             Assert.Equal(3687191, enumerator.State.SequenceNumber);
@@ -94,6 +96,39 @@ namespace OsmSharp.Replication.Test
             Assert.Equal(3687194, enumerator.State.SequenceNumber);
             Assert.True(await enumerator.MoveNext());
             Assert.Equal(3687195, enumerator.State.SequenceNumber);
+            Assert.False(await enumerator.MoveNext());
+        }
+
+
+        [Fact]
+        public async Task CatchupReplicationDiffEnumerator_MoveNext_FewMinutesAfterMidnight()
+        {
+            Http.HttpHandler.Default = new ReplicationServerMockHttpHandler("data2");
+            var enumerator = new CatchupReplicationDiffEnumerator(
+                new DateTime(2023, 06, 02, 23, 57, 0, DateTimeKind.Utc));
+            Assert.True(await enumerator.MoveNext());
+            Assert.Equal(5602190, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
+            Assert.Equal(5602191, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
+            Assert.Equal(5602192, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
+            Assert.Equal(5602193, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
+            Assert.Equal(3917, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
+            Assert.Equal(5603613, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
+            Assert.Equal(5603614, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
+            Assert.Equal(5603615, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
+            Assert.Equal(5603616, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
+            Assert.Equal(5603617, enumerator.State.SequenceNumber);
+            Assert.True(await enumerator.MoveNext());
+            Assert.Equal(5603618, enumerator.State.SequenceNumber);
+
             Assert.False(await enumerator.MoveNext());
         }
     }
